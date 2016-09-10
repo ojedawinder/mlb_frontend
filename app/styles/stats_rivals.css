@@ -1,0 +1,15 @@
+table.versus th {
+  font-style: normal;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+table.versus img {
+  width: 40px;
+  height: 40px;
+}
+
+table.versus date {
+  font-size: 0.7em;
+  display:block;
+}

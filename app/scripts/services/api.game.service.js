@@ -11,7 +11,7 @@ angular.module('mlbApp')
   .constant('$apiUrl', 'http://localhost:3000/api/mlb/')
   .factory('GameService', ['$http', '$q', '$apiUrl', '$filter', '$rootScope', function($http, $q, $apiUrl, $filter, $rootScope) {
 
-  var defaultSuccess = function(deferred, data, successCallback, doNotAddError) {
+        var defaultSuccess = function(deferred, data, successCallback, doNotAddError) {
             if (data == undefined) { // server returns empty response
                 deferred.reject();
             } else if (data.Status == "ERROR") {
@@ -46,7 +46,21 @@ angular.module('mlbApp')
               });
 
               return deferred.promise;
+          },
+
+          stats_rivals_by_year: function (team1, team2, year) {
+              var deferred = $q.defer();
+              var params = { team1: team1, team2: team2, year: year, callback: "JSON_CALLBACK"};
+              $http.get($apiUrl+"stats_rivals_by_year", {
+                    params: params
+                }).success(function(data) {
+                  defaultSuccess(deferred, data);
+              }).error(function(data, status, headers, config) {
+                  defaultError(data, status, headers, config);
+              });
+
+              return deferred.promise;
           }
       };
 
-  });
+  }]);

@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="styles/stats_rivals.css">
+<h2 class="text-center">Versus</h2>
+<table class="table versus">
+  <thead>
+    <tr>
+      <th></th>
+      <th class="text-center">Home</th>
+      <th class="text-center"></th>
+      <th class="text-center"></th>
+      <th class="text-center"></th>
+      <th class="text-center">Away</th>
+      <th></th>
+      <th class="text-center">Date</th>
+      <th class="text-center">Win</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="box in list">
+    <td><img class="img-circle"  src="{{box.home_team.team_image}}"></td>
+    <td class="text-center">{{box.home_team.name}}</td>
+    <td class="text-center">{{box.r_home}}</td>
+    <td class="text-center"><span> - <span></td>
+    <td class="text-center">{{box.r_away}}</td>
+    <td class="text-center">{{box.away_team.name}}</td>
+    <td class="text-center"><img class="img-circle" src="{{box.away_team.team_image}}"></td>
+    <td class="text-center"><small class="date">({{box.date}})</small></td>
+    <td class="text-center">
+      <img ng-if="box.r_home > box.r_away" class="img-circle" src="{{box.home_team.team_image}}">
+      <img ng-if="box.r_home < box.r_away" class="img-circle" src="{{box.away_team.team_image}}">
+    </td>
+    </tr>
+  </tbody>
+</table>
