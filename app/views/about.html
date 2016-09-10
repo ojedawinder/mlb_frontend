@@ -1,0 +1,29 @@
+<h2 class="text-center">TEAM LIST</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        Logo
+      </th>
+      <th>
+        Team Name
+      </th>
+      <th>
+        Stadium
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr  ng-repeat = "t in teams | orderBy: ['division.league_id', 'division_id']">
+    <td>
+      <img src="{{t.team_image}}" alt="{{t.name}}" />
+    </td>
+    <td>
+      {{t.name}}
+    </td>
+    <td>
+      {{t.venue.name}}
+    </td>
+  </tr>
+</tbody>
+</table>
