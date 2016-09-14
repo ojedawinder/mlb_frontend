@@ -13,3 +13,13 @@ table.versus date {
   font-size: 0.7em;
   display:block;
 }
+
+.mini-img{
+  width: 25px;
+  height: 25px;
+  margin-top: -12px;
+}
+
+.select2 > .select2-choice.ui-select-match {
+    height: 29px;
+}
