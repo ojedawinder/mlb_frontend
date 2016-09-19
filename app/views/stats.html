@@ -1,184 +1,189 @@
 <link rel="stylesheet" href="styles/stats_rivals.css">
-<h2 class="text-center">Versus {{year}}</h2>
-
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <h3 class="text-center">HOME TEAM</h3>
-
-      <ui-select ng-model="homeSelected.value" on-select="onHomeSelected($select.selected)" ng-change="onHomeSelected($select.selected)">
-          <ui-select-match>
-              <img class="mini-img" ng-src="{{ $select.selected.team_image }}" />
-              <span ng-bind="$select.selected.name"></span>
-          </ui-select-match>
-          <ui-select-choices repeat="item in (team_list | filter: $select.search) | orderBy: ['division.league_id', 'division_id'] track by item.id">
-              <img class="mini-img" ng-src="{{ item.team_image }}" />
-              <span ng-bind="item.name"></span>
-          </ui-select-choices>
-      </ui-select>
+  <div class="col-md-2 col-lg-2 col-xl-2 filter">
+    <h3 class="title text-center">Filters</h3>
+    <div class="col-md-12 area">
+      <label class="text-center title-area"><strong>Year</strong></label>
+      <ui-select ng-model="season.year"  on-select="onYearSelected($select.selected)" ng-change="onYearSelected($select.selected)">
+        <ui-select-match placeholder="Select">{{$select.selected}}</ui-select-match>
+        <ui-select-choices repeat="y in years">
+          <div ng-bind-html="y"></div>
+      </ui-select-choices>
+     </ui-select>
     </div>
-    <div class="col-md-6">
-      <h3 class="text-center">AWAY TEAM</h3>
-      <ui-select ng-model="awaySelected.value" on-select="onAwaySelected($select.selected)" ng-change="onAwaySelected($select.selected)">
-          <ui-select-match>
-              <img class="mini-img" ng-src="{{ $select.selected.team_image }}" />
-              <span ng-bind="$select.selected.name"></span>
-          </ui-select-match>
-          <ui-select-choices repeat="item in (team_list | filter: $select.search) | orderBy: ['division.league_id', 'division_id'] track by item.id">
-              <img class="mini-img" ng-src="{{ item.team_image }}" />
-              <span ng-bind="item.name"></span>
-          </ui-select-choices>
-      </ui-select>
+    <div class="col-md-12 area">
+      <label class="text-center title-area"><strong>Total Runs U/O</strong></label>
+      <div class="radio">
+      <label>UNDER
+        <input type="radio" name="UO" id="UO1" value="UNDER">
+      </label>
+      <label>OVER
+        <input type="radio" name="UO" id="UO2" value="OVER">
+      </label>
+      <input type="text" name="UORUNS">
     </div>
-  </div>
-</div>
-
-
-
-
-<table class="table table-striped versus">
-  <thead>
-    <tr>
-      <th></th>
-      <th class="text-center">Home</th>
-      <th class="text-center"></th>
-      <th class="text-center"></th>
-      <th class="text-center"></th>
-      <th class="text-center">Away</th>
-      <th></th>
-      <th class="text-center">Date</th>
-      <th class="text-center">Win</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="box in list">
-    <td><img class="img-circle"  src="{{box.home_team.team_image}}"></td>
-    <td class="text-center">{{box.home_team.name}}</td>
-    <td class="text-center">{{box.r_home}}</td>
-    <td class="text-center"><span> - <span></td>
-    <td class="text-center">{{box.r_away}}</td>
-    <td class="text-center">{{box.away_team.name}}</td>
-    <td class="text-center"><img class="img-circle" src="{{box.away_team.team_image}}"></td>
-    <td class="text-center"><small class="date">({{box.date}})</small></td>
-    <td class="text-center">
-      <img ng-if="box.r_home > box.r_away" class="img-circle" src="{{box.home_team.team_image}}">
-      <img ng-if="box.r_home < box.r_away" class="img-circle" src="{{box.away_team.team_image}}">
-    </td>
-    </tr>
-  </tbody>
-</table>
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <h3 class="text-center">AVG</h3>
-      <table class="table table-striped versus">
-        <tbody>
-          <tr>
-            <td>
-              Runs
-            </td>
-            <td>
-              {{statistics.Total}}
-            </td>
-          </tr>
-          <tr>
-            <td>
-                R+H+E
-            </td>
-            <td>
-              {{statistics.TOTAL_RHE}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    </div>
+    <div class="col-md-12 area">
+      <label class="text-center title-area"><strong>5th Runs U/O</strong></label>
+      <div class="radio">
+      <label>UNDER
+        <input type="radio" name="UO" id="UO3" value="UNDER">
+      </label>
+      <label>OVER
+        <input type="radio" name="UO" id="UO4" value="OVER">
+      </label>
+      <input type="text" name="UORUNSMID">
+    </div>
+    </div>
+    <div class="col-md-12 area">
+      <label class="text-center title-area"><strong>Total R+H+E U/O</strong></label>
+      <div class="radio">
+      <label>UNDER
+        <input type="radio" name="UO" id="UO5" value="UNDER">
+      </label>
+      <label>OVER
+        <input type="radio" name="UO" id="UO6" value="OVER">
+      </label>
+      <input type="text" name="UORHE">
+    </div>
+    </div>
+    <div class="col-md-12 area">
+      <label class="text-center title-area"><strong>Run in First Inning?</strong></label>
+      <div class="radio">
+      <label>YES
+        <input type="radio" name="firstInning" id="firstInningYES" value="YES">
+      </label>
+      <label>NO
+        <input type="radio" name="firstInning" id="firstInningNO" value="NO">
+      </label>
+    </div>
+    </div>
+    <div class="col-md-12 area">
+      <label class="text-center title-area"><strong>Home-Away Care?</strong></label>
+      <div class="radio">
+      <label>YES
+        <input type="radio" name="homeAway" id="homeAwayYES" value="YES">
+      </label>
+      <label>NO
+        <input type="radio" name="homeAway" id="homeAwayNO" value="NO">
+      </label>
+    </div>
     </div>
   </div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <h3 class="text-center">Statistics</h3>
-    </div>
+  <div class="col-md-10 col-lg-10 col-xl-10 information">
+    <h2 class="text-center title">Versus {{season.year}}</h2>
+        <div class="col-md-6">
+          <h3 class="text-center">HOME TEAM</h3>
+          <ui-select ng-model="homeSelected.value" on-select="onHomeSelected($select.selected)" ng-change="onHomeSelected($select.selected)">
+              <ui-select-match>
+                  <img class="mini-img" ng-src="{{ $select.selected.team_image }}" />
+                  <span ng-bind="$select.selected.name"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="item in (team_list | filter: $select.search) | orderBy: ['division.league_id', 'division_id'] track by item.id">
+                  <img class="mini-img" ng-src="{{ item.team_image }}" />
+                  <span ng-bind="item.name"></span>
+              </ui-select-choices>
+          </ui-select>
+        </div>
+        <div class="col-md-6">
+          <h3 class="text-center">AWAY TEAM</h3>
+          <ui-select ng-model="awaySelected.value" on-select="onAwaySelected($select.selected)" ng-change="onAwaySelected($select.selected)">
+              <ui-select-match>
+                  <img class="mini-img" ng-src="{{ $select.selected.team_image }}" />
+                  <span ng-bind="$select.selected.name"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="item in (team_list | filter: $select.search) | orderBy: ['division.league_id', 'division_id'] track by item.id">
+                  <img class="mini-img" ng-src="{{ item.team_image }}" />
+                  <span ng-bind="item.name"></span>
+              </ui-select-choices>
+          </ui-select>
+        </div>
+        <div class="col-md-12">
+          <table class="table table-striped versus">
+            <thead>
+              <tr>
+                <th>Game No</th>
+                <th></th>
+                <th class="text-center">Home</th>
+                <th class="text-center"></th>
+                <th class="text-center"></th>
+                <th class="text-center"></th>
+                <th class="text-center">Away</th>
+                <th></th>
+                <th class="text-center">Date</th>
+                <th class="text-center">Win</th>
+                <th class="text-center">Total Runs</th>
+                <th class="text-center">R's 5th Inn</th>
+                <th class="text-center">R+H+E</th>
+                <th class="text-center">First Inning?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="box in list">
+              <td class="text-center">{{list.length - $index}}</td>
+              <td><img class="img-circle"  src="{{box.home_team.team_image}}"></td>
+              <td class="text-center">{{box.home_team.name}}</td>
+              <td class="text-center">{{box.r_home}}</td>
+              <td class="text-center"><span> - <span></td>
+              <td class="text-center">{{box.r_away}}</td>
+              <td class="text-center">{{box.away_team.name}}</td>
+              <td class="text-center"><img class="img-circle" src="{{box.away_team.team_image}}"></td>
+              <td class="text-center"><small class="date">({{box.date}})</small></td>
+              <td class="text-center">
+                <img ng-if="box.r_home > box.r_away" class="img-circle" src="{{box.home_team.team_image}}">
+                <img ng-if="box.r_home < box.r_away" class="img-circle" src="{{box.away_team.team_image}}">
+              </td>
+              <td class="text-center">{{box.r_home + box.r_away}}</td>
+              <td class="text-center">{{box.linescore.total_run_5_inning}}</td>
+              <td class="text-center">{{box.linescore.r_home + box.linescore.r_away + box.linescore.h_home +box.linescore.h_away + box.linescore.e_home + box.linescore.e_away}}</td>
+              <td class="text-center">
+                <i ng-if="box.linescore.first_inning" class="glyphicon glyphicon-ok" style="color:green" aria-hidden="true"></i>
+                <i ng-if="!box.linescore.first_inning" class="glyphicon glyphicon-remove"  style="color:red" aria-hidden="true"></i>
+              </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h3 class="text-center">AVG</h3>
+            <table class="table table-striped versus">
+              <tbody>
+                <tr>
+                  <td>
+                    Runs
+                  </td>
+                  <td>
+                    {{statistics.Total}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                      R+H+E
+                  </td>
+                  <td>
+                    {{statistics.TOTAL_RHE}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h3 class="text-center">Statistics</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="col-md-12 text-center" >
+              <img class="text-center" src="{{team1.team_image}}" alt="" />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="col-md-12 text-center" >
+              <img class="text-center" src="{{team2.team_image}}" alt="" />
+            </div>
+         </div>
+        </div>
   </div>
-  <div class="row">
-    <div class="col-md-6">
-    <div class="col-md-12 text-center" >
-      <img class="text-center" src="{{team1.team_image}}" alt="" />
-    </div>
-
-    <!--
-      <table table table-striped>
-        <thead>
-          <tr>
-            <th></th>
-            <th class="text-center">Home</th>
-            <th class="text-center"></th>
-            <th class="text-center"></th>
-            <th class="text-center"></th>
-            <th class="text-center">Away</th>
-            <th></th>
-            <th class="text-center">Date</th>
-            <th class="text-center">Win</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="box in list">
-          <td><img class="img-circle"  src="{{box.home_team.team_image}}"></td>
-          <td class="text-center">{{box.home_team.name}}</td>
-          <td class="text-center">{{box.r_home}}</td>
-          <td class="text-center"><span> - <span></td>
-          <td class="text-center">{{box.r_away}}</td>
-          <td class="text-center">{{box.away_team.name}}</td>
-          <td class="text-center"><img class="img-circle" src="{{box.away_team.team_image}}"></td>
-          <td class="text-center"><small class="date">({{box.date}})</small></td>
-          <td class="text-center">
-            <img ng-if="box.r_home > box.r_away" class="img-circle" src="{{box.home_team.team_image}}">
-            <img ng-if="box.r_home < box.r_away" class="img-circle" src="{{box.away_team.team_image}}">
-          </td>
-          </tr>
-        </tbody>
-      </table>
-    -->
-    </div>
-
-    <div class="col-md-6">
-      <div class="col-md-12 text-center" >
-        <img class="text-center" src="{{team2.team_image}}" alt="" />
-      </div>
-      <!--<table table table-striped>
-        <thead>
-          <tr>
-            <th></th>
-            <th class="text-center">Home</th>
-            <th class="text-center"></th>
-            <th class="text-center"></th>
-            <th class="text-center"></th>
-            <th class="text-center">Away</th>
-            <th></th>
-            <th class="text-center">Date</th>
-            <th class="text-center">Win</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="box in list">
-          <td><img class="img-circle"  src="{{box.home_team.team_image}}"></td>
-          <td class="text-center">{{box.home_team.name}}</td>
-          <td class="text-center">{{box.r_home}}</td>
-          <td class="text-center"><span> - <span></td>
-          <td class="text-center">{{box.r_away}}</td>
-          <td class="text-center">{{box.away_team.name}}</td>
-          <td class="text-center"><img class="img-circle" src="{{box.away_team.team_image}}"></td>
-          <td class="text-center"><small class="date">({{box.date}})</small></td>
-          <td class="text-center">
-            <img ng-if="box.r_home > box.r_away" class="img-circle" src="{{box.home_team.team_image}}">
-            <img ng-if="box.r_home < box.r_away" class="img-circle" src="{{box.away_team.team_image}}">
-          </td>
-          </tr>
-        </tbody>
-      </table>-->
-    </div>
-  </div>
-
-</div>

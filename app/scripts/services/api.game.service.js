@@ -62,10 +62,38 @@ angular.module('mlbApp')
               return deferred.promise;
           },
 
+          stats_rivals_all_time: function (team1, team2) {
+              var deferred = $q.defer();
+              var params = { team1: team1, team2: team2, callback: "JSON_CALLBACK"};
+              $http.get($apiUrl+"stats_rivals_all_time", {
+                    params: params
+                }).success(function(data) {
+                  defaultSuccess(deferred, data);
+              }).error(function(data, status, headers, config) {
+                  defaultError(data, status, headers, config);
+              });
+
+              return deferred.promise;
+          },
+
           stats_rivals_avg_run_and_rhe_by_year: function (team1, team2, year) {
               var deferred = $q.defer();
               var params = { team1: team1, team2: team2, year: year, callback: "JSON_CALLBACK"};
               $http.get($apiUrl+"stats_rivals_avg_run_and_rhe_by_year", {
+                    params: params
+                }).success(function(data) {
+                  defaultSuccess(deferred, data);
+              }).error(function(data, status, headers, config) {
+                  defaultError(data, status, headers, config);
+              });
+
+              return deferred.promise;
+          },
+
+          stats_rivals_avg_run_and_rhe_all_time: function (team1, team2) {
+              var deferred = $q.defer();
+              var params = { team1: team1, team2: team2, callback: "JSON_CALLBACK"};
+              $http.get($apiUrl+"stats_rivals_avg_run_and_rhe_all_time", {
                     params: params
                 }).success(function(data) {
                   defaultSuccess(deferred, data);
